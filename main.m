@@ -116,6 +116,7 @@ function RLC_S_Callback(~, ~)
     %msgbox('Button clicked!');
     mainFig = gcf; % Get the current figure handle
     set(mainFig,'visible','off')
+    
 
 
 
@@ -123,3 +124,4 @@ function RLC_P_Callback(~, ~)
     %msgbox('Button clicked!');
     mainFig = gcf; % Get the current figure handle
     set(mainFig,'visible','off')
+    fig= Parallel();
