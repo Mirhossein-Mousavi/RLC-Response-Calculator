@@ -102,18 +102,28 @@ imshow(A, 'Border', 'tight', 'Parent', ax);
 
 
 V_txtBox = uicontrol('Style', 'edit', ...
-    'Position', [118 75 35 20], ... % [x, y, width, height]
+    'Position', [118 31 35 20], ... % [x, y, width, height]
     'String', '', ...
     'FontSize', 9);
 
 
 C_txtBox = uicontrol('Style', 'edit', ...
-    'Position', [118 130 35 20], ... % [x, y, width, height]
+    'Position', [118 101 35 20], ... % [x, y, width, height]
+    'String', '', ...
+    'FontSize', 9);
+
+Cv0_txtBox = uicontrol('Style', 'edit', ...
+    'Position', [118 76 35 20], ... % [x, y, width, height]
     'String', '', ...
     'FontSize', 9);
 
 L_txtBox = uicontrol('Style', 'edit', ...
-    'Position', [118 172 35 20], ... % [x, y, width, height]
+    'Position', [118 171 35 20], ... % [x, y, width, height]
+    'String', '', ...
+    'FontSize', 9);
+
+Li0_txtBox = uicontrol('Style', 'edit', ...
+    'Position', [118 146 35 20], ... % [x, y, width, height]
     'String', '', ...
     'FontSize', 9);
 
@@ -122,7 +132,7 @@ R_txtBox = uicontrol('Style', 'edit', ...
     'String', '', ...
     'FontSize', 9);
 
-textboxes=[R_txtBox L_txtBox C_txtBox V_txtBox];
+textboxes=[R_txtBox L_txtBox C_txtBox V_txtBox Cv0_txtBox Li0_txtBox];
 
  r1=uicontrol('Style', 'radiobutton', ...
         'String', 'R Current', ...
@@ -167,6 +177,8 @@ for i=0:0
     global L;
     global C;
     global V;
+    global V0;
+    global I0;
     texts=get(textboxes,'String')'
     if any(cellfun(@isempty, texts))
         msgbox('textboxes must not be empty', 'Warning', 'warn');
@@ -300,9 +312,52 @@ for i=0:0
     end;
 
     if isempty(V)
-        msgbox('V value is not in format', 'Warning', 'warn')
+        msgbox('Iₛ value is not in format', 'Warning', 'warn')
         break;
     end;
+
+
+    %%detect unit I0
+    str=char(texts(6));
+    u=str(end)
+    if  u=='m' 
+
+        I0=str(1:end - 1);
+        I0=str2num(I0);
+
+        switch u
+            case 'm'
+                I0=I0*10^-3;
+        end;
+    else
+        I0=str2num(str)
+    end;
+    if isempty(I0)
+        msgbox('I₀ value is not in format', 'Warning', 'warn')
+        break;
+    end;
+
+    %%detect unit V0
+    str=char(texts(5));
+    u=str(end)
+    if  u=='m' 
+
+        V0=str(1:end - 1);
+        V0=str2num(V0);
+
+        switch u
+            case 'm'
+                V0=V0*10^-3;
+        end;
+    else
+        V0=str2num(str)
+    end;
+    if isempty(V0)
+        msgbox('V₀ value is not in format', 'Warning', 'warn')
+        break;
+    end;
+
+
 
 
 

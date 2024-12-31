@@ -22,7 +22,7 @@ function varargout = main(varargin)
 
 % Edit the above text to modify the response to help main
 
-% Last Modified by GUIDE v2.5 27-Dec-2024 12:10:24
+% Last Modified by GUIDE v2.5 30-Dec-2024 23:45:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -114,9 +114,14 @@ btn = uicontrol('Style', 'pushbutton', ...
 
 function RLC_S_Callback(~, ~)
     %msgbox('Button clicked!');
-    mainFig = gcf; % Get the current figure handle
-    set(mainFig,'visible','off')
+    Mainpage = gcf; % Get the current figure handle
+    set(Mainpage,'visible','off')
+    fig= Series();
     
+    btn = uicontrol('Style', 'pushbutton', ...
+        'String', '< Back', ...
+        'Position', [5, 398, 60, 30], ...
+        'Callback', @Back_Callback,'Parent',fig,'FontSize',10);
 
 
 
@@ -125,3 +130,14 @@ function RLC_P_Callback(~, ~)
     mainFig = gcf; % Get the current figure handle
     set(mainFig,'visible','off')
     fig= Parallel();
+
+    btn = uicontrol('Style', 'pushbutton', ...
+                'String', '< Back', ...
+                'Position', [5, 398, 60, 30], ...
+                'Callback', @Back_Callback,'Parent',fig,'FontSize',10);
+
+
+function Back_Callback(~, ~)
+mainFig = gcf; % Get the current figure handle
+set(mainFig,'visible','off')
+set(main,'visible','on')
