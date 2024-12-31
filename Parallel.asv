@@ -168,13 +168,10 @@ textboxes=[R_txtBox L_txtBox C_txtBox V_txtBox Cv0_txtBox Li0_txtBox];
  fig = gcf; % Get the current figure
 
  % Create an axis for the chart in a corner of the main figure
- chart = axes(fig, 'Position', [0.65, 0.25, 0.33, 0.33]);
-  chart.Color = 'none'; 
+ chart = axes(fig, 'Position', [0.63, 0.27, 0.35, 0.35]);
  title(chart, '');
- % xlabel(chart, 'X Axis');
- % ylabel(chart, '                                   Y Axis');
-
- plotnumbers(chart)
+ xlabel(chart, 'X Axis');
+ ylabel(chart, '                                   Y Axis');
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -182,20 +179,23 @@ textboxes=[R_txtBox L_txtBox C_txtBox V_txtBox Cv0_txtBox Li0_txtBox];
 
 
 
-function plotnumbers(ax)
+function plotRandomNumbers(ax)
  % Generate random data
     x = 1:10;
     y = rand(1, 10) * 10; % Random numbers between 0 and 10
 
     % Retain existing content in the figure
     hold(ax, 'on');
-    % grid on;
     % Clear only the current axis content before plotting
     cla(ax);
 
     % Plot the data
     plot(ax, x, y, '-o', 'LineWidth', 1.5);
 
+    % Add text annotations to the chart
+    for i = 1:length(x)
+        text(ax, x(i), y(i), sprintf('%.2f', y(i)), 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'center');
+    end
 
     % Release the hold state
     hold(ax, 'off');
