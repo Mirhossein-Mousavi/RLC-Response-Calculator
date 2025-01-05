@@ -126,15 +126,15 @@ function RLC_S_Callback(~, ~)
 
 
 function RLC_P_Callback(~, ~)
-    %msgbox('Button clicked!');
-    mainFig = gcf; % Get the current figure handle
-    set(mainFig,'visible','off')
-    fig= Parallel();
+%msgbox('Button clicked!');
+mainFig = gcf; % Get the current figure handle
+set(mainFig,'visible','off')
+fig= Parallel();
 
-    btn = uicontrol('Style', 'pushbutton', ...
-                'String', '< Back', ...
-                'Position', [5, 398, 60, 30], ...
-                'Callback', @Back_Callback,'Parent',fig,'FontSize',10);
+btn = uicontrol('Style', 'pushbutton', ...
+    'String', '< Back', ...
+    'Position', [5, 398, 60, 30], ...
+    'Callback', @Back_Callback,'Parent',fig,'FontSize',10);
 
 
 function Back_Callback(~, ~)

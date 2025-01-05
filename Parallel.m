@@ -75,12 +75,13 @@ varargout{1} = handles.output;
 
 % --- Executes during object creation, after setting all properties.
 function figure1_CreateFcn(hObject, eventdata, handles)
-    global textboxes;
-    global Radios;
-    global R;
-    global chart;
-    textboxes = []; % Initialize the variable
-    Radios=[];
+    global textboxes1;
+    global Radios1;
+    global R1;
+    global Chart1;
+    global Label1;
+    textboxes1 = []; % Initialize the variable
+    Radios1=[];
 % hObject    handle to figure1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
@@ -133,7 +134,7 @@ R_txtBox = uicontrol('Style', 'edit', ...
     'String', '', ...
     'FontSize', 9);
 
-textboxes=[R_txtBox L_txtBox C_txtBox V_txtBox Cv0_txtBox Li0_txtBox];
+textboxes1=[R_txtBox L_txtBox C_txtBox V_txtBox Cv0_txtBox Li0_txtBox];
 
  r1=uicontrol('Style', 'radiobutton', ...
         'String', 'R Current', ...
@@ -155,12 +156,18 @@ textboxes=[R_txtBox L_txtBox C_txtBox V_txtBox Cv0_txtBox Li0_txtBox];
         'Position', [402 70 40 30],'BackgroundColor', 'white', ...
         'Callback', @(src, event) Radio_calback(src),'Value',1);
 
- Radios=[r1 r2 r3 r4];
+ Radios1=[r1 r2 r3 r4];
 
  btn = uicontrol('Style', 'pushbutton', ...
                 'String', 'Calculate', ...
                 'Position', [260, 25, 100, 30], ...
                 'Callback', @calculate);
+
+ Label1 = uicontrol('Style', 'text', ...
+              'Position', [430, 5, 350, 40], ...
+              'String', '', ...
+              'FontSize', 11, ...
+              'HorizontalAlignment', 'center',BackgroundColor='W');
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%chart
 
@@ -168,13 +175,13 @@ textboxes=[R_txtBox L_txtBox C_txtBox V_txtBox Cv0_txtBox Li0_txtBox];
  fig = gcf; % Get the current figure
 
  % Create an axis for the chart in a corner of the main figure
- chart = axes(fig, 'Position', [0.65, 0.25, 0.33, 0.33]);
-  chart.Color = 'none'; 
- title(chart, '');
- % xlabel(chart, 'X Axis');
- % ylabel(chart, '                                   Y Axis');
+ Chart1 = axes(fig, 'Position', [0.65, 0.25, 0.33, 0.33]);
+ Chart1.Color = 'none';
+ title(Chart1, '');
+ % xlabel(chart1, 'X Axis');
+ % ylabel(chart1, '                                   Y Axis');
 
- plotnumbers(chart)
+ % plotnumbers(chart1)
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -183,43 +190,45 @@ textboxes=[R_txtBox L_txtBox C_txtBox V_txtBox Cv0_txtBox Li0_txtBox];
 
 
 function plotnumbers(ax)
- % Generate random data
-    x = 1:10;
-    y = rand(1, 10) * 10; % Random numbers between 0 and 10
+% Generate random data
+x = 1:10;
+y = rand(1, 10) * 10; % Random numbers between 0 and 10
 
-    % Retain existing content in the figure
-    hold(ax, 'on');
-    % grid on;
-    % Clear only the current axis content before plotting
-    cla(ax);
+% Retain existing content in the figure
+hold(ax, 'on');
+% grid on;
+% Clear only the current axis content before plotting
+cla(ax);
 
-    % Plot the data
-    plot(ax, x, y, '-o', 'LineWidth', 1.5);
+% Plot the data
+plot(ax, x, y, '-o', 'LineWidth', 1.5);
 
-
-    % Release the hold state
-    hold(ax, 'off');
-
+% Release the hold state
+hold(ax, 'off');
 
 
-   function Radio_calback(src, event)
-   global Radios;
-   set(Radios,'value',0);
-   set(src, 'value', 1);
+
+function Radio_calback(src, event)
+global Radios1;
+set(Radios1,'value',0);
+set(src, 'value', 1);
 
 
 
 
 function calculate(~, ~)
 for i=0:0
-    global textboxes;
-    global R;
-    global L;
-    global C;
-    global V;
-    global V0;
-    global I0;
-    texts=get(textboxes,'String')'
+    global textboxes1;
+    global R1;
+    global L1;
+    global C1;
+    global V1;
+    global V01;
+    global I01;
+    global Label1;
+    global Radios1;
+    global Chart1;
+    texts=get(textboxes1,'String')'
     if any(cellfun(@isempty, texts))
         msgbox('textboxes must not be empty', 'Warning', 'warn');
         break;
@@ -231,28 +240,28 @@ for i=0:0
     u=str(end)
     if u=='p' | u=='n' | u=='u' | u=='m' | u=='k' | u=='M'
 
-        R=str(1:end - 1);
-        R=str2num(R);
+        R1=str(1:end - 1);
+        R1=str2num(R1);
 
         switch u
             case 'p'
-                R=R*10^-12;
+                R1=R1*10^-12;
             case 'n'
-                R=R*10^-9;
+                R1=R1*10^-9;
             case 'u'
-                R=R*10^-6;
+                R1=R1*10^-6;
             case 'm'
-                R=R*10^-3;
+                R1=R1*10^-3;
             case 'k'
-                R=R*10^3;
+                R1=R1*10^3;
             case 'M'
-                R=R*10^6;
+                R1=R1*10^6;
         end;
     else
-        R=str2num(str)
+        R1=str2num(str)
     end;
 
-    if isempty(R)
+    if isempty(R1)
         msgbox('R value is not in format', 'Warning', 'warn')
         break;
     end;
@@ -264,28 +273,28 @@ for i=0:0
     u=str(end)
     if u=='p' | u=='n' | u=='u' | u=='m' | u=='k' | u=='M'
 
-        L=str(1:end - 1);
-        L=str2num(L);
+        L1=str(1:end - 1);
+        L1=str2num(L1);
 
         switch u
             case 'p'
-                L=L*10^-12;
+                L1=L1*10^-12;
             case 'n'
-                L=L*10^-9;
+                L1=L1*10^-9;
             case 'u'
-                L=L*10^-6;
+                L1=L1*10^-6;
             case 'm'
-                L=L*10^-3;
+                L1=L1*10^-3;
             case 'k'
-                L=L*10^3;
+                L1=L1*10^3;
             case 'M'
-                L=L*10^6;
+                L1=L1*10^6;
         end;
     else
-        L=str2num(str)
+        L1=str2num(str)
     end;
 
-    if isempty(L)
+    if isempty(L1)
         msgbox('L value is not in format', 'Warning', 'warn')
         break;
     end;
@@ -297,28 +306,28 @@ for i=0:0
     u=str(end)
     if u=='p' | u=='n' | u=='u' | u=='m' | u=='k' | u=='M'
 
-        C=str(1:end - 1);
-        C=str2num(C);
+        C1=str(1:end - 1);
+        C1=str2num(C1);
 
         switch u
             case 'p'
-                C=C*10^-12;
+                C1=C1*10^-12;
             case 'n'
-                C=C*10^-9;
+                C1=C1*10^-9;
             case 'u'
-                C=C*10^-6;
+                C1=C1*10^-6;
             case 'm'
-                C=C*10^-3;
+                C1=C1*10^-3;
             case 'k'
-                C=C*10^3;
+                C1=C1*10^3;
             case 'M'
-                C=C*10^6;
+                C1=C1*10^6;
         end;
     else
-        C=str2num(str)
+        C1=str2num(str)
     end;
 
-    if isempty(C)
+    if isempty(C1)
         msgbox('C value is not in format', 'Warning', 'warn')
         break;
     end;
@@ -330,75 +339,84 @@ for i=0:0
     u=str(end)
     if u=='p' | u=='n' | u=='u' | u=='m' | u=='k' | u=='M'
 
-        V=str(1:end - 1);
-        V=str2num(V);
+        V1=str(1:end - 1);
+        V1=str2num(V1);
 
         switch u
             case 'p'
-                V=V*10^-12;
+                V1=V1*10^-12;
             case 'n'
-                V=V*10^-9;
+                V1=V1*10^-9;
             case 'u'
-                V=V*10^-6;
+                V1=V1*10^-6;
             case 'm'
-                V=V*10^-3;
+                V1=V1*10^-3;
             case 'k'
-                V=V*10^3;
+                V1=V1*10^3;
             case 'M'
-                V=V*10^6;
+                V1=V1*10^6;
         end;
     else
-        V=str2num(str)
+        V1=str2num(str)
     end;
 
-    if isempty(V)
+    if isempty(V1)
         msgbox('Iₛ value is not in format', 'Warning', 'warn')
         break;
     end;
 
 
-    %%detect unit I0
+    %%detect unit I01
     str=char(texts(6));
     u=str(end)
     if  u=='m' 
 
-        I0=str(1:end - 1);
-        I0=str2num(I0);
+        I01=str(1:end - 1);
+        I01=str2num(I01);
 
         switch u
             case 'm'
-                I0=I0*10^-3;
+                I01=I01*10^-3;
         end;
     else
-        I0=str2num(str)
+        I01=str2num(str)
     end;
-    if isempty(I0)
+    if isempty(I01)
         msgbox('I₀ value is not in format', 'Warning', 'warn')
         break;
     end;
 
-    %%detect unit V0
+    %%detect unit V01
     str=char(texts(5));
     u=str(end)
     if  u=='m' 
 
-        V0=str(1:end - 1);
-        V0=str2num(V0);
+        V01=str(1:end - 1);
+        V01=str2num(V01);
 
         switch u
             case 'm'
-                V0=V0*10^-3;
+                V01=V01*10^-3;
         end;
     else
-        V0=str2num(str)
+        V01=str2num(str)
     end;
-    if isempty(V0)
+    if isempty(V01)
         msgbox('V₀ value is not in format', 'Warning', 'warn')
         break;
     end;
 
 
-
+    Radioselect = arrayfun(@(rb) rb.Value, Radios1);
+    if Radioselect(1)==1
+        P_RI(R1,L1,C1,V1,V01,I01,Chart1,Label1);
+    elseif Radioselect(2)==1
+        P_LI(R1,L1,C1,V1,V01,I01,Chart1,Label1);
+    elseif Radioselect(3)==1
+        P_CI(R1,L1,C1,V1,V01,I01,Chart1,Label1);
+    elseif Radioselect(4)==1
+        P_V(R1,L1,C1,V1,V01,I01,Chart1,Label1);
+    end;
 
 
 
@@ -410,3 +428,197 @@ end;
 
    
    
+
+
+
+     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%calculation funcs
+function P_RI(r,l,c,is,v0,i0,chrt,lbl)
+R = r; % Resistance in ohms
+L = l; % Inductance in H
+C = c; % Capacitance in F
+Is = is; % Current source in A
+I0 = i0; % Initial inductor current in A
+V0 = v0; % Initial capacitor voltage in V
+
+t = linspace(0, 0.05, 1000); % Time range (0 to 0.3 seconds)
+
+% Calculating constants
+alpha = 1 / (2 * R * C); % Damping factor
+omega_0 = 1 / sqrt(L * C); % Natural frequency
+omega_d = sqrt(omega_0^2 - alpha^2); % Damped angular frequency
+
+% Coefficients A and B based on initial conditions
+A = V0; % Voltage initial condition
+B = (I0 / C + alpha * V0) / omega_d; % Current initial condition
+
+% Voltage across the circuit
+v_t = exp(-alpha * t) .* (A * cos(omega_d * t) + B * sin(omega_d * t));
+
+% Current through inductor
+iL_t = C * [diff(v_t) / (t(2) - t(1)), 0]; % Numerical derivative of v(t)
+
+% Current through capacitor
+iC_t = diff([v_t, v_t(end)]) / (t(2) - t(1)); % Numerical derivative of v(t)
+
+% Current through resistor
+iR_t = v_t / R;
+
+% Plot based on user selection
+
+hold(chrt, 'on');
+cla(chrt);
+plot(chrt, t, iR_t, 'LineWidth', 1.5);
+title(chrt, '');
+xlabel(chrt, 'Time(s)');
+ylabel(chrt, 'IR');
+% grid(chrt, 'on');
+hold(chrt, 'off');
+
+equation = 'IR = \frac(v(t))(R)';
+lbl.String=equation;
+
+xlabel('Time(s)');
+
+
+
+function P_LI(r,l,c,is,v0,i0,chrt,lbl)
+R = r; % Resistance in ohms
+L = l; % Inductance in H
+C = c; % Capacitance in F
+Is = is; % Current source in A
+I0 = i0; % Initial inductor current in A
+V0 = v0; % Initial capacitor voltage in V
+
+t = linspace(0, 0.05, 1000); % Time range (0 to 0.3 seconds)
+
+% Calculating constants
+alpha = 1 / (2 * R * C); % Damping factor
+omega_0 = 1 / sqrt(L * C); % Natural frequency
+omega_d = sqrt(omega_0^2 - alpha^2); % Damped angular frequency
+
+% Coefficients A and B based on initial conditions
+A = V0; % Voltage initial condition
+B = (I0 / C + alpha * V0) / omega_d; % Current initial condition
+
+% Voltage across the circuit
+v_t = exp(-alpha * t) .* (A * cos(omega_d * t) + B * sin(omega_d * t));
+
+% Current through inductor
+iL_t = C * [diff(v_t) / (t(2) - t(1)), 0]; % Numerical derivative of v(t)
+
+% Current through capacitor
+iC_t = diff([v_t, v_t(end)]) / (t(2) - t(1)); % Numerical derivative of v(t)
+
+% Current through resistor
+iR_t = v_t / R;
+
+hold(chrt, 'on');
+cla(chrt);
+plot(chrt, t, iL_t, 'LineWidth', 1.5);
+title(chrt, '');
+xlabel(chrt, 'Time(s)');
+ylabel(chrt, 'Current(A)');
+% grid(chrt, 'on');
+hold(chrt, 'off');
+
+equation = 'IL(t)=C \frac(dv(t))(dt)';
+lbl.String=equation;
+
+xlabel('Time(s)');
+
+
+
+
+function P_CI(r,l,c,is,v0,i0,chrt,lbl)
+R = r; % Resistance in ohms
+L = l; % Inductance in H
+C = c; % Capacitance in F
+Is = is; % Current source in A
+I0 = i0; % Initial inductor current in A
+V0 = v0; % Initial capacitor voltage in V
+
+t = linspace(0, 0.05, 1000); % Time range (0 to 0.3 seconds)
+
+% Calculating constants
+alpha = 1 / (2 * R * C); % Damping factor
+omega_0 = 1 / sqrt(L * C); % Natural frequency
+omega_d = sqrt(omega_0^2 - alpha^2); % Damped angular frequency
+
+% Coefficients A and B based on initial conditions
+A = V0; % Voltage initial condition
+B = (I0 / C + alpha * V0) / omega_d; % Current initial condition
+
+% Voltage across the circuit
+v_t = exp(-alpha * t) .* (A * cos(omega_d * t) + B * sin(omega_d * t));
+
+% Current through inductor
+iL_t = C * [diff(v_t) / (t(2) - t(1)), 0]; % Numerical derivative of v(t)
+
+% Current through capacitor
+iC_t = diff([v_t, v_t(end)]) / (t(2) - t(1)); % Numerical derivative of v(t)
+
+% Current through resistor
+iR_t = v_t / R;
+
+hold(chrt, 'on');
+cla(chrt);
+plot(chrt, t, iC_t, 'LineWidth', 1.5);
+title(chrt, '');
+xlabel(chrt, 'Time(s)');
+ylabel(chrt, 'Current(A)');
+% grid(chrt, 'on');
+hold(chrt, 'off');
+
+        equation = 'IC(t) = \frac(dv(t))(dt)';
+lbl.String=equation;
+
+xlabel('Time(s)');
+
+
+
+
+function P_V(r,l,c,is,v0,i0,chrt,lbl)
+R = r; % Resistance in ohms
+L = l; % Inductance in H
+C = c; % Capacitance in F
+Is = is; % Current source in A
+I0 = i0; % Initial inductor current in A
+V0 = v0; % Initial capacitor voltage in V
+
+t = linspace(0, 0.05, 1000); % Time range (0 to 0.3 seconds)
+
+% Calculating constants
+alpha = 1 / (2 * R * C); % Damping factor
+omega_0 = 1 / sqrt(L * C); % Natural frequency
+omega_d = sqrt(omega_0^2 - alpha^2); % Damped angular frequency
+
+% Coefficients A and B based on initial conditions
+A = V0; % Voltage initial condition
+B = (I0 / C + alpha * V0) / omega_d; % Current initial condition
+
+% Voltage across the circuit
+v_t = exp(-alpha * t) .* (A * cos(omega_d * t) + B * sin(omega_d * t));
+
+% Current through inductor
+iL_t = C * [diff(v_t) / (t(2) - t(1)), 0]; % Numerical derivative of v(t)
+
+% Current through capacitor
+iC_t = diff([v_t, v_t(end)]) / (t(2) - t(1)); % Numerical derivative of v(t)
+
+% Current through resistor
+iR_t = v_t / R;
+
+hold(chrt, 'on');
+cla(chrt);
+plot(chrt, t, v_t, 'LineWidth', 1.5);
+title(chrt, '');
+xlabel(chrt, 'Time(s)');
+ylabel(chrt, 'Current(A)');
+% grid(chrt, 'on');
+hold(chrt, 'off');
+
+        equation = sprintf('v(t)=e^(-%.1ft) [%.1f\\cos(%.1ft) + %.1f\\sin(%.2ft)]', ...
+            alpha, A, omega_d, B, omega_d);
+lbl.String=equation;
+
+xlabel('Time(s)');
