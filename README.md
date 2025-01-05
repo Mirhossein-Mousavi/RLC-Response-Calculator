@@ -32,7 +32,11 @@ You can use the following prefixes for entering the unit of each parameter in th
 
 Open the `main.m` file and run it to start the program.
 
+![](https://github.com/mirhossein-mousavi/rlc-response-calculator/blob/master/picture/rlc%20calculator%201.png)
 
+![](https://github.com/Mirhossein-Mousavi/RLC-Response-Calculator/blob/master/Picture/Series%201.png)
+
+![](https://github.com/Mirhossein-Mousavi/RLC-Response-Calculator/blob/master/Picture/RLC%20Parallel%201.png)
 
 
 
