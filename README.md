@@ -24,11 +24,11 @@ Here's the updated text with the requested addition in markdown format:
 
 > [!NOTE]
 You can use the following prefixes for entering the unit of each parameter in the same text box where you input the values:
-- **p** : pico
-- **n** : nano
-- **u** : micro
-- **m** : milli
-- **k** : kilo
+>- **p** : pico
+>- **n** : nano
+>- **u** : micro
+>- **m** : milli
+>- **k** : kilo
 
 Open the `main.m` file and run it to start the program.
 
